@@ -1,0 +1,43 @@
+{
+  "name": "use-optimized-selector",
+  "description": "A hook to memoized selector values, useful for bailing out of renders.",
+  "version": "1.0.0-beta1",
+  "author": {
+    "name": "John Rom",
+    "url": "https://johnrom.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnrom/use-optimized-selector.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "use-context-selector",
+    "use-subscriptions",
+    "use-mutable-source"
+  ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && rollup -c && tsc --emitDeclarationOnly",
+    "prepublish:public": "npm run build && npm run bump-version",
+    "publish:public": "npm publish --access public"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16 || ^17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@types/react": "^17.0.3",
+    "react": "^17.0.1",
+    "rollup": "^2.41.2",
+    "typescript": "^4.2.3"
+  }
+}

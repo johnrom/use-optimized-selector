@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "lib": [
+      "es2015"
+    ],
+    "declarationDir": "dist/types",
+  },
+  "include": ["src"]
+}
