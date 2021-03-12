@@ -3,7 +3,7 @@
  * Based on https://github.com/dai-shi/use-context-selector/issues/19#issuecomment-767198162
  * Gist: https://gist.github.com/johnrom/4e8bc65110c689006663c7736539e892
  */
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 /**
  * A memoized or constant function in the form of:
@@ -23,6 +23,26 @@ export type Comparer<Return> = (prev: Return, next: Return) => boolean;
 
 const UNINITIALIZED_VALUE = Symbol();
 
+export const selectOptimizedSelector = <Value, Return>(
+  selector: Selector<Value, Return>,
+  comparer: Comparer<Return> = Object.is,
+): Selector<Value, Return> => {
+  let cachedValue: Return | typeof UNINITIALIZED_VALUE = UNINITIALIZED_VALUE;
+
+  return (value: Value) => {
+    const newValue = selector(value);
+
+    if (
+      cachedValue === UNINITIALIZED_VALUE ||
+      !comparer(cachedValue, newValue)
+    ) {
+      cachedValue = newValue;
+    }
+
+    return cachedValue;
+  };
+};
+
 /**
  * A hook that caches the value of a selector given an optional comparer.
  *
@@ -36,22 +56,10 @@ const UNINITIALIZED_VALUE = Symbol();
  */
 export const useOptimizedSelector = <Value, Return>(
   selector: Selector<Value, Return>,
-  comparer: Comparer<Return> = Object.is
+  comparer?: Comparer<Return>,
 ): Selector<Value, Return> => {
-  return useMemo(() => {
-    let cachedValue: Return | typeof UNINITIALIZED_VALUE = UNINITIALIZED_VALUE;
-
-    return (value: Value) => {
-      const newValue = selector(value);
-
-      if (
-        cachedValue === UNINITIALIZED_VALUE ||
-        !comparer(cachedValue, newValue)
-      ) {
-        cachedValue = newValue;
-      }
-
-      return cachedValue;
-    };
-  }, [selector, comparer]);
+  return useMemo(() => selectOptimizedSelector(selector, comparer), [
+    comparer,
+    selector,
+  ]);
 };
