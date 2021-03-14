@@ -1,28 +1,17 @@
 import {
-  Comparer,
   selectOptimizedSelector,
   Selector,
-} from '../src/hooks/use-optimized-selector';
-
-type TestObject = {
-  hello: string;
-};
-
-const firstObject: TestObject = {
-  hello: 'world',
-};
-const duplicateObject: TestObject = {
-  hello: 'world',
-};
-const secondObject: TestObject = {
-  hello: 'universe',
-};
-
-const sameObjectSelector = (value: TestObject) => value;
-const newObjectSelector = (value: TestObject) => ({ ...value });
-const helloSelector = (value: TestObject) => value.hello;
-const helloIsEqual: Comparer<TestObject> = (prevValue, nextValue) =>
-  prevValue.hello === nextValue.hello;
+} from '../src/use-optimized-selector';
+import {
+  duplicateObject,
+  firstObject,
+  helloIsEqual,
+  helloSelector,
+  newObjectSelector,
+  sameObjectSelector,
+  secondObject,
+  TestObject,
+} from './fixtures';
 
 describe('strict equality', () => {
   describe('strict equality: sameObjectSelector', () => {
@@ -30,10 +19,12 @@ describe('strict equality', () => {
 
     // set up new selector for each run
     beforeEach(() => {
-      optimizedSelector = selectOptimizedSelector(sameObjectSelector);
+      optimizedSelector = selectOptimizedSelector(
+        sameObjectSelector,
+        Object.is,
+      );
     });
 
-    // I don't think this is actually a test...
     test('strict equality: sameObjectSelector: returns first object when objects are equal', () => {
       const firstResult = optimizedSelector(firstObject);
       const secondResult = optimizedSelector(firstObject);
@@ -64,7 +55,7 @@ describe('strict equality', () => {
 
     // set up new selector for each run
     beforeEach(() => {
-      optimizedSelector = selectOptimizedSelector(newObjectSelector);
+      optimizedSelector = selectOptimizedSelector(newObjectSelector, Object.is);
     });
 
     test('strict equality: newObjectSelector: returns new object even if source objects are equal', () => {
@@ -94,7 +85,7 @@ describe('strict equality', () => {
 
     // set up new selector for each run
     beforeEach(() => {
-      optimizedSelector = selectOptimizedSelector(helloSelector);
+      optimizedSelector = selectOptimizedSelector(helloSelector, Object.is);
     });
 
     test('strict equality: helloSelector: returns same object if source objects are equal', () => {

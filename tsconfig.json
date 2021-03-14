@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
     "strict": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es5",
+    "esModuleInterop": true,
     "declaration": true,
     "lib": [
       "es2015"
     ],
-    "declarationDir": "dist/types",
+    "stripInternal": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "./dist"
   },
-  "include": ["src", "tests"]
+  "include": ["src"]
 }

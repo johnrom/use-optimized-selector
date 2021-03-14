@@ -23,9 +23,12 @@ export type Comparer<Return> = (prev: Return, next: Return) => boolean;
 
 const UNINITIALIZED_VALUE = Symbol();
 
+/**
+ * @internal
+ */
 export const selectOptimizedSelector = <Value, Return>(
   selector: Selector<Value, Return>,
-  comparer: Comparer<Return> = Object.is,
+  comparer: Comparer<Return>,
 ): Selector<Value, Return> => {
   let cachedValue: Return | typeof UNINITIALIZED_VALUE = UNINITIALIZED_VALUE;
 
@@ -56,7 +59,7 @@ export const selectOptimizedSelector = <Value, Return>(
  */
 export const useOptimizedSelector = <Value, Return>(
   selector: Selector<Value, Return>,
-  comparer?: Comparer<Return>,
+  comparer: Comparer<Return> = Object.is,
 ): Selector<Value, Return> => {
   return useMemo(() => selectOptimizedSelector(selector, comparer), [
     comparer,
