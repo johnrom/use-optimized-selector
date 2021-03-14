@@ -36,7 +36,7 @@ Then import it into your JavaScript or TypeScript file:
 ```js
 import { useOptimizedSelector } from 'use-optimized-selector';
 
-const helloWorldSelector = (hello) => hello.world;
+const helloWorldSelector = (hello) => hello?.world;
 // for example, are they both Earth?
 const planetNameComparer = (world1, world2) => world1?.name === world2?.name;
 
@@ -165,4 +165,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Original Concept @dai-shi [useContextSelector](https://github.com/dai-shi/use-context-selector/issues/19#issuecomment-767198162)
+* Original Concept [@dai-shi](https://github.com/dai-shi) [useContextSelector](https://github.com/dai-shi/use-context-selector/issues/19#issuecomment-767198162)
