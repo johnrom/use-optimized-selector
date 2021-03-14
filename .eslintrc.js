@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  exclude: ['./dist', './node_modules'],
+  exclude: ['./dist', './node_modules', './temp'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react-hooks', 'jest'],
   extends: [
