@@ -1,7 +1,7 @@
 {
   "name": "use-optimized-selector",
   "description": "A hook to memoized selector values, useful for bailing out of renders.",
-  "version": "1.0.0-beta2",
+  "version": "1.0.0-beta3",
   "author": {
     "name": "John Rom",
     "url": "https://johnrom.com/"
