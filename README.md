@@ -13,7 +13,7 @@ A React Hook to optimize a selector with a comparer. Useful in React bailing out
 
 Getting started is easy, but it will be good to know how [useMemo](https://reactjs.org/docs/hooks-reference.html#usememo) works in order to confirm your selector is working as expected.
 
-> :warning: Both the selector and comparer passed into this function must be constant or memoized in order to optimize the returned selector. Any time either of those parameters changes, a new selector will be created. In many cases, the library you're using for subscriptions will create a brand new subscription, and return a new value, uncached value when memoization is done incorrectly. This will result in less than optimal subscriptions.
+> :warning: Both the selector and comparer passed into this function must be constant or memoized in order to optimize the returned selector. Any time either of those parameters changes, a new selector will be created. In many cases, the library you're using for subscriptions will create a brand new subscription, and return a new, uncached value when memoization is done incorrectly. This will result in less than optimal subscriptions.
 
 > :warning: A second consequence of these optimizations is that you could over-optimize and end up with stale values if you don't take into account everything that could change! For example if there were two worlds named Earth in the examples below with different props, they would be stale when checking `planetNameComparer`! Using something generic like `react-fast-compare` for deep comparison on objects is less prone to mistakes.
 
