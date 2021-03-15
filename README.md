@@ -45,7 +45,8 @@ const planetNameComparer = (world1, world2) => world1?.name === world2?.name;
 const MyComponent = () => {
   const hello = {
     world1: { world: { name: "Earth" } },
-    world2: { world: { name: "Earth" } };
+    world2: { world: { name: "Earth" } },
+  };
 
   const selector = useOptimizedSelector(helloWorldSelector, planetNameComparer);
 
@@ -55,12 +56,12 @@ const MyComponent = () => {
   assert(selector(hello.world2) !== hello.world2);
 
   // now when using state...
-  const [state, setState] = useState(world1);
+  const [state, setState] = useState(hello.world1);
 
   // since selector(world2) will return identical to the current value of useState...
   useEffect(() => {
     // setState will bail out!
-    setState(() => selector(world2));
+    setState(() => selector(hello.world2));
   });
 }
 ```
