@@ -68,7 +68,7 @@ const MyComponent = () => {
 
 #### With useContextSelector
 
-_from [TheDocs](https://github.com/dai-shi/use-context-selector)_
+_example from [the `use-context-selector` docs](https://github.com/dai-shi/use-context-selector)_
 
 ```js
 import React, { useState } from 'react';
